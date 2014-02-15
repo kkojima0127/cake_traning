@@ -20,6 +20,7 @@
  */
 
 App::uses('Controller', 'Controller');
+App::uses('AuthComponent', 'Controller/Component');
 
 /**
  * Application Controller
@@ -31,4 +32,30 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    
+    public $components = [
+        'Session',
+        'Auth' => [
+            'authenticate' => [
+                AuthComponent::ALL => ['userModel' => 'User'],
+                'Form' => [
+                    'fields' => ['userName' => 'username']
+                ],
+            ],
+            'loginRedirect' => ['controller' => 'posts', 'action' => 'index'],
+            'logoutRedirect' => ['controller' => 'pages', 'action' => 'display', 'home'],
+            'authorize' => ['Controller']
+        ]
+    ];
+    
+    public function isAuthorized($user = null) {
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+        return false;
+    }
+
+    public function beforeFilter() {
+        $this->Auth->allow('index', 'view');
+    }
 }
