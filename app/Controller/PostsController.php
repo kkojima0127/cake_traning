@@ -1,10 +1,11 @@
 <?php
 class PostsController extends AppController {
+    public $uses = ['Post', 'User'];
     public $helpers = ['Html', 'Form', 'Session'];
     public $components = ['Session'];
     
     public function isAuthorized($user = null) {
-        if ($this->action === 'add') {
+        if (in_array($this->action, ['add', 'index', 'view'])) {
             return true;
         }
         
@@ -18,7 +19,16 @@ class PostsController extends AppController {
     }
 
     public function index() {
-        $this->set('posts', $this->Post->find('all'));
+        if ($this->Auth->user('role') == 'admin') {
+            $data = $this->Post->find('all');
+        } else {
+            $data = $this->Post->find('all', [
+                'conditions' => [
+                    'Post.user_id' => $this->Auth->user('id')
+                ]
+            ]);
+        }
+        $this->set('posts', $data);
     }
 
     public function view($id = null) {

@@ -29,7 +29,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake.generic');
+        echo $this->Html->css('cake.generic');
+        echo $this->Html->css('gumby');
+        echo $this->Html->css('style');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -37,26 +39,28 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	?>
 </head>
 <body>
-	<div id="container">
-		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
-		</div>
-		<div id="content">
-
-			<?php echo $this->Session->flash(); ?>
-			<?php echo $this->Session->flash('auth'); ?>
-
-			<?php echo $this->fetch('content'); ?>
-		</div>
-		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false)
-				);
-			?>
-		</div>
-	</div>
-	<?php echo $this->element('sql_dump'); ?>
+    <div id="container">
+        <div id="nav7" class="margin_top pretty navbar row">
+            <div class="row">
+                <h3 class="white four columns">MyBlog</h3>
+                <ul class="eight columns">
+                    <?php if (LOGIN): ?>
+                    <li><?= $this->Html->link('Home', ['controller' => 'posts', 'action' => 'index']) ?></li>
+                    <li><?= $this->Html->link('Logout', ['controller' => 'users', 'action' => 'logout']) ?></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+        <div id="content">
+            <div class="row">
+                <?php echo $this->Session->flash(); ?>
+                <?php echo $this->Session->flash('auth'); ?>
+                <?php echo $this->fetch('content'); ?>
+            </div>
+        </div>
+        <div id="footer">
+        </div>
+    </div>
+    <?php echo $this->element('sql_dump'); ?>
 </body>
 </html>

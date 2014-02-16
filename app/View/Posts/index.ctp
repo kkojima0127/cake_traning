@@ -1,8 +1,12 @@
 <h1>Blog posts</h1>
-<?php echo $this->Html->link('Add Post', ['controller' => 'posts', 'action' => 'add']); ?>
+<p>こんにちは、<?= USER_NAME ?>さん</p>
+<div class="pretty medium primary btn" >
+<?php echo $this->Html->link('新規投稿', ['controller' => 'posts', 'action' => 'add']); ?>
+</div>
 <table>
     <tr>
         <th>Id</th>
+        <th>Author</th>
         <th>Title</th>
         <th>Action</th>
         <th>Created</th>
@@ -11,6 +15,7 @@
     <?php foreach ($posts as $post): ?>
     <tr>
         <td><?php echo $post['Post']['id']; ?></td>
+        <td><?php echo $post['User']['username'] ?></td>
         <td><?php echo $this->Html->link($post['Post']['title'], ['controller' => 'posts', 'action' => 'view', $post['Post']['id']]); ?></td>
         <td>
             <?php echo $this->Html->link('Edit', ['controller' => 'posts', 'action' => 'edit', $post['Post']['id']]); ?>

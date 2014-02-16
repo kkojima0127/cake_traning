@@ -43,9 +43,10 @@ class AppController extends Controller {
                 ],
             ],
             'loginRedirect' => ['controller' => 'posts', 'action' => 'index'],
-            'logoutRedirect' => ['controller' => 'pages', 'action' => 'display', 'home'],
+            'logoutRedirect' => ['controller' => 'users', 'action' => 'login'],
             'authorize' => ['Controller']
-        ]
+        ],
+        'DebugKit.Toolbar'
     ];
     
     public function isAuthorized($user = null) {
@@ -56,6 +57,19 @@ class AppController extends Controller {
     }
 
     public function beforeFilter() {
-        $this->Auth->allow('index', 'view');
+        $this->Auth->allow('login');
+        if (!defined('LOGIN')) {
+            if ($this->Auth->user()) {
+                define('LOGIN' , TRUE); 
+            } else {
+                define('LOGIN' , FALSE); 
+            }
+        }
+        if (!defined('USER_NAME')) {
+            define('USER_NAME', $this->Auth->user('username'));
+        }
+        if (!defined('ROLE')) {
+            define('ROLE', $this->Auth->user('role'));
+        }
     }
 }

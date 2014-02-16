@@ -1,6 +1,10 @@
 <?php
 class Post extends AppModel {
     
+    public $belongsTo = [
+        'User'
+    ];
+    
     public $validate = [
         'title' => [
             'rule' => 'notEmpty'
