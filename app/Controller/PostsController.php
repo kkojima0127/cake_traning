@@ -5,7 +5,7 @@ class PostsController extends AppController {
     public $components = ['Session'];
     
     public function isAuthorized($user = null) {
-        if (in_array($this->action, ['add', 'index', 'view'])) {
+        if (in_array($this->action, ['add', 'index', 'view', 'search'])) {
             return true;
         }
         
@@ -87,5 +87,15 @@ class PostsController extends AppController {
             $this->Session->setFlash(__('The post with id: %s has been deleted.', h($id)));
             return $this->redirect(['action' => 'index']);
         }
+    }
+
+    public function search() {
+        $posts = $this->Post->find('all', [
+            'conditions' => [
+                $this->postConditions($this->request->data)
+            ],
+            'recursive' => 0
+        ]);
+        $this->set(compact('posts'));
     }
 }
