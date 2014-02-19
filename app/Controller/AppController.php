@@ -48,6 +48,8 @@ class AppController extends Controller {
         ],
         'DebugKit.Toolbar'
     ];
+
+    public $helpers = ['Form', 'Html'];
     
     public function isAuthorized($user = null) {
         if (isset($user['role']) && $user['role'] === 'admin') {
@@ -72,4 +74,9 @@ class AppController extends Controller {
             define('ROLE', $this->Auth->user('role'));
         }
     }
+
+    public function beforeRender() {
+        $this->set('title_for_layout', 'Tennis Yard');
+    }
+
 }

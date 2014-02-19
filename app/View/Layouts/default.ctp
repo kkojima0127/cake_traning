@@ -16,39 +16,40 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
-		echo $this->Html->meta('icon');
+	echo $this->Html->meta('icon');
+        echo $this->Html->css(['gumby', 'style']);
+        echo $this->Html->script(['libs/jquery-2.0.2.min.js']);
 
-        echo $this->Html->css('cake.generic');
-        echo $this->Html->css('gumby');
-        echo $this->Html->css('style');
-
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
+	echo $this->fetch('meta');
+	echo $this->fetch('css');
+	echo $this->fetch('script');
 	?>
 </head>
 <body>
     <div id="container">
-        <div id="nav7" class="margin_top pretty navbar row">
-            <div class="row">
-                <h3 class="white four columns">MyBlog</h3>
-                <ul class="eight columns">
-                    <?php if (LOGIN): ?>
-                    <li><?= $this->Html->link('Home', ['controller' => 'posts', 'action' => 'index']) ?></li>
-                    <li><?= $this->Html->link('Logout', ['controller' => 'users', 'action' => 'logout']) ?></li>
-                    <?php endif; ?>
-                </ul>
+        <div id="header">
+            <div id="nav7" class="margin_top pretty navbar row">
+                <div class="row">
+                    <h3 class="white four columns">Tennis Yard</h3>
+                    <ul class="eight columns">
+                        <?php if (LOGIN): ?>
+                        <li><?= $this->Html->link('Home', ['controller' => 'posts', 'action' => 'index']) ?></li>
+                        <li><?= $this->Html->link('Player', ['controller' => 'players', 'action' => 'index']) ?></li>
+                        <li><?= $this->Html->link('Racket', ['controller' => 'rackets', 'action' => 'index']) ?></li>
+                        <li><?= $this->Html->link('Maker', ['controller' => 'makers', 'action' => 'index']) ?></li>
+                        <li><?= $this->Html->link('Logout', ['controller' => 'users', 'action' => 'logout']) ?></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
             </div>
         </div>
         <div id="content">
